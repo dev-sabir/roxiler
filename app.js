@@ -24,11 +24,12 @@ app.get("/todos", async (req, res) => {
 
 app.get("/user/:userId", async (req, res) => {
   const userId = req.params.userId;
-  const response = await Axios.get(
-    `https://jsonplaceholder.typicode.com/users/${userId}`
-  );
-
-  if (!response) {
+  let response;
+  try {
+    response = await Axios.get(
+      `https://jsonplaceholder.typicode.com/users/${userId}`
+    );
+  } catch (error) {
     return res.status(403).json({ message: "Users API is not working" });
   }
 
